@@ -6,17 +6,17 @@
     <title>Nithish Kumar R - Full Stack Developer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:wght@800&family=Bebas+Neue&family=Pacifico&family=Orbitron:wght@800&family=Righteous&family=Space+Grotesk:wght@700&family=Lobster&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #0A0E27;
-            --accent: #00FFA3;
-            --secondary: #6C5CE7;
-            --tertiary: #FF6B9D;
-            --text: #E8E9F3;
-            --text-dim: #A0A3BD;
-            --surface: #12162E;
-            --surface-elevated: #1A1F3A;
+            --primary: #0B1B2B;
+            --accent: #FFC857;
+            --secondary: #4CC9F0;
+            --tertiary: #FF6F61;
+            --text: #F4F7FB;
+            --text-dim: #BCC9DA;
+            --surface: #0F2236;
+            --surface-elevated: #16304A;
         }
 
         * {
@@ -159,6 +159,142 @@
             width: 100%;
         }
 
+        .menu-toggle {
+            display: none;
+            width: 42px; height: 42px;
+            background: transparent;
+            border: 1px solid var(--text-dim);
+            border-radius: 8px;
+            color: var(--accent);
+            font-size: 1.3rem;
+            cursor: pointer;
+        }
+
+        /* Parallax + scroll reveal */
+        .project-icon, .project-header h3 { will-change: translate; }
+        @media (min-width: 900px) {
+            #projects .project-header { padding: 1.8rem 2rem; }
+            #projects .project-icon { width: 64px; height: 64px; font-size: 2rem; margin-bottom: 0.9rem; }
+            #projects .project-card h3 { margin-bottom: 0; }
+            #projects .project-content { padding: 1.6rem 2rem; }
+            #projects .project-card .info-list { margin-bottom: 1.2rem; }
+        }
+        .bg-pattern, .orb, .hero-content, .hero-visual, .section-header { will-change: translate; }
+
+        /* ===== Scroll frames ===== */
+        .orb, .bg-pattern { display: none; }
+        .site-nav-wrap { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; max-width: none; padding: 14px 1rem 0; pointer-events: none; }
+        .site-nav-wrap nav {
+            max-width: 1100px; margin: 0 auto; padding: .6rem 1.4rem; pointer-events: auto;
+            border-radius: 999px;
+            background: linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.05));
+            border: 1px solid rgba(255,255,255,.25);
+            box-shadow: 0 12px 40px rgba(0,0,0,.30), inset 0 1px 0 rgba(255,255,255,.35);
+            -webkit-backdrop-filter: blur(20px) saturate(160%); backdrop-filter: blur(20px) saturate(160%);
+        }
+        .frame {
+            position: relative;
+            min-height: 100vh; min-height: 100dvh;
+            display: flex; align-items: center;
+            padding: 6.5rem 0 3.5rem;
+            overflow: hidden;
+            transform-origin: 50% 100%;
+            background:
+                radial-gradient(circle at 85% 8%,  var(--g1) 0, transparent 45%),
+                radial-gradient(circle at 8% 95%,  var(--g2) 0, transparent 42%),
+                var(--bg);
+        }
+        .frame > .container { width: 100%; position: relative; z-index: 1; }
+        .frame section { padding: 0; }
+        .frame::before {            /* scrolling grid, drifts at its own speed */
+            content: ''; position: absolute; inset: -80px 0; z-index: 0; opacity: .035; pointer-events: none;
+            background-image: linear-gradient(var(--accent) 1px, transparent 1px), linear-gradient(90deg, var(--accent) 1px, transparent 1px);
+            background-size: 60px 60px; background-position: 0 var(--gy, 0px);
+        }
+        .frame::after {             /* darkens as the next frame covers it */
+            content: ''; position: absolute; inset: 0; z-index: 50; background: #000; pointer-events: none;
+            opacity: calc(var(--q, 0) * .6);
+        }
+        .frames-on .frame { position: sticky; }
+        .hero-frame .hero { min-height: calc(100vh - 10rem); padding: 0; }
+        .frame[data-theme="hero"]       { --bg:#0B1B2B; --g1:rgba(76,201,240,.34);  --g2:rgba(255,111,97,.26); }
+        .frame[data-theme="skills"]     { --bg:#0E2A47; --g1:rgba(76,201,240,.45);  --g2:rgba(255,200,87,.20); }
+        .frame[data-theme="experience"] { --bg:#0F3B45; --g1:rgba(94,234,212,.34);  --g2:rgba(76,201,240,.28); }
+        .frame[data-theme="proj1"]      { --bg:#123E5C; --g1:rgba(76,201,240,.42);  --g2:rgba(255,200,87,.18); }
+        .frame[data-theme="proj2"]      { --bg:#3A2433; --g1:rgba(255,111,97,.40);  --g2:rgba(255,200,87,.24); }
+        .frame[data-theme="education"]  { --bg:#0F3040; --g1:rgba(94,234,212,.30);  --g2:rgba(76,201,240,.32); }
+        .frame[data-theme="certs"]      { --bg:#3B2A1E; --g1:rgba(255,200,87,.34);  --g2:rgba(255,111,97,.26); }
+        .frame[data-theme="contact"]    { --bg:#0B1B2B; --g1:rgba(255,200,87,.26);  --g2:rgba(76,201,240,.34); }
+        .site-footer { position: relative; z-index: 40; background: #07121D; }
+        .site-footer footer { margin-top: 0; padding: 2.5rem 0; }
+
+        /* ===== Glass theme + 3D ===== */
+        .frame .skill-category, .frame .contact-card, .frame .timeline-content, .frame .project-card, .hero-tag {
+            background: linear-gradient(135deg, rgba(255,255,255,.15), rgba(255,255,255,.04));
+            -webkit-backdrop-filter: blur(18px) saturate(150%); backdrop-filter: blur(18px) saturate(150%);
+            border: 1px solid rgba(255,255,255,.22);
+            box-shadow: 0 14px 44px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.28);
+            position: relative;
+        }
+        .frame .skill-tag, .frame .tech-item { background: rgba(255,255,255,.08); }
+        .frame .contact-icon { background: rgba(255,255,255,.14); }
+        .hero-tag { color: var(--accent); }
+        .frame:not(.hero-frame) section, .skills-grid, .timeline, .contact-grid { perspective: 1100px; }
+        .frame .tilt {
+            transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+            transition: transform .18s ease-out, border-color .3s ease, box-shadow .3s ease;
+        }
+        .frame .tilt:hover { transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-6px); }
+        .tilt::after {
+            content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0;
+            background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,.18), transparent 45%);
+            transition: opacity .3s ease;
+        }
+        .tilt:hover::after { opacity: 1; }
+        .section-header { transform-style: preserve-3d; }
+
+        /* ===== Splash / loading screen ===== */
+        body.loading { overflow: hidden; }
+        body.loading .frame *, body.loading .site-nav-wrap * { animation-play-state: paused !important; }
+        .splash {
+            position: fixed; inset: 0; z-index: 2000; display: flex; align-items: center; justify-content: center;
+            background:
+                radial-gradient(circle at 20% 15%, rgba(76,201,240,.35), transparent 45%),
+                radial-gradient(circle at 85% 90%, rgba(255,111,97,.30), transparent 45%),
+                radial-gradient(circle at 70% 20%, rgba(255,200,87,.18), transparent 40%),
+                #07121D;
+            transition: transform 1.05s cubic-bezier(.77,0,.18,1);
+            animation: splashKill .01s linear 9s forwards;       /* failsafe if scripts never run */
+        }
+        .splash.hide { transform: translateY(-100%); }
+        .splash::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); }
+        @keyframes splashKill { to { visibility: hidden; opacity: 0; } }
+        .splash-inner { text-align: center; padding: 0 1.2rem; perspective: 1000px; width: 100%; }
+        .splash-glass {
+            display: inline-block; max-width: 100%; padding: clamp(1.4rem, 4vw, 2.6rem) clamp(1.4rem, 5vw, 3.4rem);
+            border-radius: 28px;
+            background: linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.04));
+            border: 1px solid rgba(255,255,255,.25);
+            box-shadow: 0 30px 80px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.35);
+            -webkit-backdrop-filter: blur(22px); backdrop-filter: blur(22px);
+            transform-style: preserve-3d;
+            animation: glassFloat 7s ease-in-out infinite;
+        }
+        .splash-name {
+            display: flex; flex-wrap: wrap; justify-content: center; row-gap: .1em;
+            font-size: clamp(2rem, 7.2vw, 5.4rem); line-height: 1.1; color: #fff; min-height: 1.2em;
+            transform-style: preserve-3d;
+            text-shadow: 0 1px 0 #ffe29a, 0 2px 0 #f6c75a, 0 3px 0 #e0ab3e, 0 4px 0 #c9922d, 0 5px 0 #a87620, 0 14px 26px rgba(0,0,0,.55);
+        }
+        .splash-name span { display: inline-block; min-width: .28em; animation: letterBob 2.4s ease-in-out infinite; animation-delay: calc(var(--i) * 90ms); }
+        .splash-sub { margin-top: 1rem; color: var(--text-dim); letter-spacing: .35em; text-transform: uppercase; font-size: clamp(.65rem, 1.6vw, .85rem); font-family: 'JetBrains Mono', monospace; }
+        .splash-bar { margin: 1.6rem auto .6rem; width: min(360px, 70%); height: 4px; border-radius: 4px; background: rgba(255,255,255,.14); overflow: hidden; }
+        .splash-bar i { display: block; height: 100%; width: 0%; background: linear-gradient(90deg, var(--secondary), var(--accent), var(--tertiary)); box-shadow: 0 0 14px rgba(255,200,87,.7); transition: width .12s linear; }
+        .splash-pct { color: var(--text-dim); font-size: .8rem; font-family: 'JetBrains Mono', monospace; }
+        @keyframes glassFloat { 0%,100% { transform: rotateY(-14deg) rotateX(5deg); } 50% { transform: rotateY(14deg) rotateX(-5deg); } }
+        @keyframes letterBob { 0%,100% { transform: translateZ(0) translateY(0); } 50% { transform: translateZ(40px) translateY(-8px); } }
+        @media (prefers-reduced-motion: reduce) { .splash-glass, .splash-name span { animation: none; } }
+
         /* Hero Section */
         .hero {
             min-height: 90vh;
@@ -216,9 +352,9 @@
             border-radius: 50%;
             background:
                 radial-gradient(circle at var(--gx) var(--gy), rgba(255,255,255,0.30), transparent 48%),
-                radial-gradient(circle at 30% 25%, rgba(0,255,163,0.45), rgba(108,92,231,0.55) 55%, rgba(255,107,157,0.40) 100%);
+                radial-gradient(circle at 30% 25%, rgba(255,200,87,0.45), rgba(76,201,240,0.55) 55%, rgba(255,111,97,0.40) 100%);
             border: 1px solid rgba(255,255,255,0.12);
-            box-shadow: inset 0 0 70px rgba(255,255,255,0.08), 0 0 90px rgba(108,92,231,0.45);
+            box-shadow: inset 0 0 70px rgba(255,255,255,0.08), 0 0 90px rgba(76,201,240,0.45);
         }
 
         .ring {
@@ -231,12 +367,12 @@
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            border: 1.5px dashed rgba(0,255,163,0.45);
+            border: 1.5px dashed rgba(255,200,87,0.45);
             animation: spin 40s linear infinite;
         }
         .ring.ring-2 { --z: -20px; width: min(92%, 480px); }
         .ring.ring-2 i {
-            border: 1px solid rgba(255,107,157,0.35);
+            border: 1px solid rgba(255,111,97,0.35);
             border-top-color: var(--tertiary);
             animation-duration: 22s;
             animation-direction: reverse;
@@ -283,7 +419,7 @@
             display: block;
             padding: 0.55rem 0.9rem;
             background: rgba(26, 31, 58, 0.72);
-            border: 1px solid rgba(0,255,163,0.45);
+            border: 1px solid rgba(255,200,87,0.45);
             border-radius: 12px;
             color: var(--accent);
             font-size: 0.85rem;
@@ -291,15 +427,15 @@
             white-space: nowrap;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.35), 0 0 20px rgba(0,255,163,0.15);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.35), 0 0 20px rgba(255,200,87,0.15);
             animation: chipFloat 5s ease-in-out infinite;
         }
         .chip-1 { top: 10%;  left: 2%;   --z: 130px; }
         .chip-2 { top: 22%;  right: 0;   --z: 110px; }
         .chip-3 { bottom: 26%; left: 0;  --z: 150px; }
         .chip-4 { bottom: 14%; right: 4%; --z: 100px; }
-        .chip-2 span { color: var(--tertiary); border-color: rgba(255,107,157,0.5); animation-delay: -1.2s; }
-        .chip-3 span { color: #a99cff; border-color: rgba(108,92,231,0.7); animation-delay: -2.4s; }
+        .chip-2 span { color: var(--tertiary); border-color: rgba(255,111,97,0.5); animation-delay: -1.2s; }
+        .chip-3 span { color: #9fe3ff; border-color: rgba(76,201,240,0.7); animation-delay: -2.4s; }
         .chip-4 span { animation-delay: -3.6s; }
         @keyframes chipFloat {
             0%, 100% { transform: translateY(0); }
@@ -389,12 +525,12 @@
         .btn-primary {
             background: var(--accent);
             color: var(--primary);
-            box-shadow: 0 0 30px rgba(0, 255, 163, 0.3);
+            box-shadow: 0 0 30px rgba(255,200,87, 0.3);
         }
 
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 40px rgba(0, 255, 163, 0.5);
+            box-shadow: 0 10px 40px rgba(255,200,87, 0.5);
         }
 
         .btn-secondary {
@@ -522,7 +658,7 @@
         .project-card:hover {
             transform: translateY(-10px);
             border-color: var(--accent);
-            box-shadow: 0 20px 60px rgba(0, 255, 163, 0.2);
+            box-shadow: 0 20px 60px rgba(255,200,87, 0.2);
         }
 
         .project-header {
@@ -701,7 +837,7 @@
         .contact-card:hover {
             transform: translateY(-5px);
             border-color: var(--accent);
-            box-shadow: 0 10px 40px rgba(0, 255, 163, 0.2);
+            box-shadow: 0 10px 40px rgba(255,200,87, 0.2);
         }
 
         .contact-icon {
@@ -747,11 +883,19 @@
         }
         .back-to-top{
               position:fixed; bottom:1.8rem; right:1.8rem; width:46px; height:46px; border-radius:50%; background: var(--accent); color: var(--primary);
-              display:flex; align-items:center; justify-content:center; font-size:1.2rem; box-shadow: 0 8px 24px rgba(0,255,163,0.35); z-index:900; text-decoration:none;
+              display:flex; align-items:center; justify-content:center; font-size:1.2rem; box-shadow: 0 8px 24px rgba(255,200,87,0.35); z-index:900; text-decoration:none;
               opacity:0; visibility:hidden; transform: translateY(12px); transition: all .35s ease;
         }
         .back-to-top.show{ opacity:1; visibility:visible; transform: translateY(0); }
-        .back-to-top:hover{ background: var(--secondary); color: #fff; }
+        .back-to-top:hover{ background: var(--secondary); color: var(--primary); }
+
+        .info-list { list-style: none; color: var(--text-dim); line-height: 1.8; margin-bottom: 2rem; }
+        .info-list li { position: relative; padding-left: 1.4rem; margin-bottom: 0.6rem; }
+        .info-list li::before { content: '▹'; position: absolute; left: 0; color: var(--accent); }
+        .project-card h3 { padding: 0 0.5rem; font-size: clamp(1.3rem, 5vw, 2rem); line-height: 1.3; }
+        .skill-category .project-grade { font-size: 0.95rem; padding: 0.6rem 1.2rem; }
+        .cert-meta { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 1rem; }
+        .tagline-sm { color: var(--text-dim); font-size: 0.9rem; margin-top: 0.4rem; }
 
         /* Responsive */
         @media (max-width: 900px) {
@@ -795,9 +939,25 @@
         }
 
         @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .site-nav-wrap nav { position: relative; padding: .55rem .6rem .55rem 1.2rem; }
+            .frame { padding: 5.5rem 0 3rem; }
             .nav-links {
                 display: none;
+                position: absolute;
+                top: calc(100% + 10px);
+                right: 0;
+                flex-direction: column;
+                gap: 1.1rem;
+                padding: 1.3rem 1.6rem;
+                background: rgba(15,34,54,.72);
+                -webkit-backdrop-filter: blur(22px) saturate(160%); backdrop-filter: blur(22px) saturate(160%);
+                border: 1px solid rgba(255,255,255,0.22);
+                border-radius: 18px;
+                box-shadow: 0 20px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,.25);
+                z-index: 950;
             }
+            .nav-links.open { display: flex; }
 
             .hero h1 {
                 font-size: clamp(2.3rem, 10vw, 3rem);
@@ -845,9 +1005,90 @@
             opacity: 1;
             transform: translateY(0);
         }
+    
+        /* ===== 3D Tech Stack Keyboard ===== */
+        .kb-layout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 1.5rem; align-items: stretch; }
+        .kb-stage {
+            position: relative; height: clamp(380px, 64vh, 620px); border-radius: 24px; overflow: hidden;
+            border: 1px solid rgba(255,255,255,.14);
+            background: radial-gradient(ellipse at 50% 38%, #14305a 0%, #08122a 55%, #03060f 100%);
+            box-shadow: 0 24px 70px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.15);
+            isolation: isolate;
+        }
+        .kb-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: pan-y; cursor: grab; outline: none; }
+        .kb-stage.dragging canvas { cursor: grabbing; }
+        .kb-stage.over-key canvas { cursor: pointer; }
+        .kb-hint {
+            position: absolute; left: 1rem; bottom: .9rem; z-index: 2; pointer-events: none;
+            font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(188,201,218,.8);
+            transition: opacity .6s ease;
+        }
+        .kb-stage.touched .kb-hint { opacity: .45; }
+        .kb-ui { position: absolute; top: .8rem; right: .8rem; z-index: 3; display: flex; gap: .4rem; flex-wrap: wrap; justify-content: flex-end; }
+        .kb-ui button {
+            min-width: 40px; height: 40px; padding: 0 .75rem; border-radius: 12px; cursor: pointer;
+            background: rgba(255,255,255,.08); color: var(--text); font: 500 .78rem 'JetBrains Mono', monospace;
+            border: 1px solid rgba(255,255,255,.2); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+            transition: background .2s, border-color .2s, color .2s;
+        }
+        .kb-ui button:hover, .kb-ui button:focus-visible { background: rgba(255,255,255,.18); border-color: var(--accent); color: var(--accent); outline: none; }
+        .kb-ui button[aria-pressed="true"] { border-color: var(--secondary); color: var(--secondary); }
+        .kb-fallback { display: none; position: absolute; inset: 0; align-items: center; justify-content: center; text-align: center; padding: 2rem; color: var(--text-dim); z-index: 4; }
+        .kb-stage.no-webgl .kb-fallback { display: flex; }
+        .kb-stage.no-webgl .kb-ui, .kb-stage.no-webgl .kb-hint { display: none; }
+
+        .kb-panel {
+            --kc: #4CC9F0; position: relative; padding: 1.6rem; border-radius: 20px; overflow: hidden;
+            background: linear-gradient(135deg, rgba(255,255,255,.14), rgba(255,255,255,.04));
+            -webkit-backdrop-filter: blur(18px) saturate(150%); backdrop-filter: blur(18px) saturate(150%);
+            border: 1px solid rgba(255,255,255,.22); box-shadow: 0 14px 44px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.28);
+            display: flex; flex-direction: column; justify-content: center; min-height: 220px;
+        }
+        .kb-panel::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--kc); box-shadow: 0 0 22px var(--kc); transition: background .25s, box-shadow .25s; }
+        .kb-panel .kb-cat { font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--kc); filter: brightness(1.35); margin-bottom: .5rem; }
+        .kb-panel h3 { font-family: 'Syne', sans-serif; font-size: 2rem; line-height: 1.1; margin-bottom: .8rem; color: var(--text); }
+        .kb-panel p { color: var(--text-dim); font-size: .9rem; line-height: 1.7; }
+        .kb-panel .kb-pin { margin-top: 1rem; font-size: .7rem; color: var(--accent); min-height: 1em; }
+        .kb-panel.swap > * { animation: kbSwap .28s ease-out; }
+        @keyframes kbSwap { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+        .kb-chips { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.25rem; justify-content: center; }
+        .kb-chips button {
+            padding: .4rem .8rem; border-radius: 8px; cursor: pointer; font: 400 .78rem 'JetBrains Mono', monospace;
+            color: var(--text-dim); background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+            transition: all .2s ease;
+        }
+        .kb-chips button i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: .5rem; background: var(--c); }
+        .kb-chips button:hover, .kb-chips button:focus-visible, .kb-chips button.active { color: var(--text); border-color: var(--c); box-shadow: 0 0 14px -2px var(--c); outline: none; }
+        .kb-chips button[aria-pressed="true"] { background: rgba(255,255,255,.16); }
+
+        .kb-ready .skills-grid { display: block; max-width: 520px; margin: 1.75rem auto 0; }
+        .kb-ready .skills-grid .skill-category:not(.keep) { display: none; }
+
+        @media (max-width: 900px) {
+            .kb-layout { grid-template-columns: 1fr; }
+            .kb-panel { min-height: 0; }
+            .kb-panel h3 { font-size: 1.6rem; }
+        }
+        @media (max-width: 480px) {
+            .kb-stage { height: 400px; border-radius: 18px; }
+            .kb-ui button { min-width: 36px; height: 36px; padding: 0 .55rem; font-size: .72rem; }
+            .kb-hint { font-size: .62rem; }
+        }
+        @media (prefers-reduced-motion: reduce) { .kb-panel.swap > * { animation: none; } }
     </style>
 </head>
-<body>
+<body id="top" class="loading">
+    <div class="splash" id="splash" aria-hidden="true">
+        <div class="splash-inner">
+            <div class="splash-glass">
+                <div class="splash-name" id="splashName">NITHISH KUMAR R</div>
+                <div class="splash-sub">Full Stack Developer</div>
+                <div class="splash-bar"><i id="splashBar"></i></div>
+                <div class="splash-pct" id="splashPct">0%</div>
+            </div>
+        </div>
+    </div>
     <!-- Background Effects -->
     <div class="bg-pattern"></div>
     <div class="orb orb-1"></div>
@@ -855,30 +1096,34 @@
     <div class="orb orb-3"></div>
 
     <!-- Navigation -->
-    <div class="container">
+    <div class="container site-nav-wrap">
         <nav>
             <div class="logo">NK</div>
-            <ul class="nav-links">
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+            <ul class="nav-links" id="navLinks">
                 <li><a href="#about">About</a></li>
                 <li><a href="#skills">Skills</a></li>
+                <li><a href="#experience">Experience</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#education">Education</a></li>
+                <li><a href="#certifications">Certifications</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
     </div>
 
     <!-- Hero Section -->
+    <div class="frame hero-frame" data-theme="hero">
     <div class="container">
-        <section class="hero">
+        <section class="hero" id="about">
             <div class="hero-content">
                 <span class="hero-tag">👋 Welcome to my portfolio</span>
                 <h1>
                     Hi, I'm <span class="gradient-text">Nithish Kumar</span>
                 </h1>
                 <p>
-                    MCA Graduate & Full Stack Developer specializing in modern web technologies. 
-                    Passionate about building elegant solutions with clean code and creative design.
+                    BCA Graduate & Full Stack Developer with a strong foundation in programming and database management.
+                    Passionate about building software solutions, and seeking an entry-level role to contribute, learn, and grow.
                 </p>
                 <div class="cta-buttons">
                     <a href="#projects" class="btn btn-primary">View My Work →</a>
@@ -909,137 +1154,203 @@
             </div>
         </section>
     </div>
+    </div>
 
     <!-- Skills Section -->
+    <div class="frame" data-theme="skills">
     <div class="container">
         <section id="skills">
             <div class="section-header">
                 <div class="section-tag">My Expertise</div>
-                <h2 class="section-title">Technical Skills</h2>
+                <h2 class="section-title">Tech Stack</h2>
                 <p class="section-subtitle">
-                    Technologies and tools I work with to bring ideas to life
+                    Hover, explore, and discover my skills.
                 </p>
             </div>
 
+            <div class="kb-layout" id="techKeyboard">
+                <div class="kb-stage" id="kbStage">
+                    <div class="kb-canvas-host" style="position:absolute;inset:0"></div>
+                    <div class="kb-ui" role="group" aria-label="Keyboard view controls">
+                        <button type="button" data-act="left" aria-label="Rotate left 90 degrees" title="Rotate left">&#8634;</button>
+                        <button type="button" data-act="right" aria-label="Rotate right 90 degrees" title="Rotate right">&#8635;</button>
+                        <button type="button" data-act="spin" aria-label="Spin a full 360 degrees" title="Full 360° spin">360°</button>
+                        <button type="button" data-act="auto" aria-pressed="true" title="Toggle auto-rotation">Auto</button>
+                        <button type="button" data-act="reset" aria-label="Reset view" title="Reset view">Reset</button>
+                    </div>
+                    <div class="kb-hint">Drag to rotate &middot; Hover to explore</div>
+                    <div class="kb-fallback">Interactive 3D view isn't available on this device. Use the list below to browse my stack.</div>
+                </div>
+                <aside class="kb-panel" id="kbPanel" aria-live="polite" aria-atomic="true">
+                    <div class="kb-cat">Tech Stack</div>
+                    <h3>Pick a key</h3>
+                    <p>Hover a key on the keyboard (or tap it on mobile) to see what I use it for.</p>
+                    <div class="kb-pin"></div>
+                </aside>
+            </div>
+            <div class="kb-chips" id="kbChips" role="group" aria-label="Technologies"></div>
+
             <div class="skills-grid">
                 <div class="skill-category">
-                    <h3>Frontend Development</h3>
+                    <h3>Languages</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag">HTML5</span>
-                        <span class="skill-tag">CSS3</span>
-                        <span class="skill-tag">JavaScript</span>
-                        <span class="skill-tag">React.js</span>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3>Backend Development</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Node.js</span>
-                        <span class="skill-tag">Express.js</span>
-                        <span class="skill-tag">Mongodb</span>
-                        <span class="skill-tag">PostgreSQL</span>
-                        <span class="skill-tag">MySQL</span>
                         <span class="skill-tag">Java</span>
-                        <span class="skill-tag">Flutter</span>
-                        <span class="skill-tag">Spring Boot</span>
+                        <span class="skill-tag">JavaScript</span>
                         <span class="skill-tag">Python</span>
                     </div>
                 </div>
 
                 <div class="skill-category">
-                    <h3>Tools & Software</h3>
+                    <h3>Web Technologies</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag">Git & GitHub</span>
-                        <span class="skill-tag">Postman API</span>
+                        <span class="skill-tag">HTML5</span>
+                        <span class="skill-tag">CSS3</span>
+                        <span class="skill-tag">REST API</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Frameworks &amp; Libraries</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">React.js</span>
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">Express.js</span>
+                        <span class="skill-tag">Spring Boot</span>
+                        <span class="skill-tag">Flutter</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Databases</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">MongoDB</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Tools &amp; Platforms</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">GitHub</span>
+                        <span class="skill-tag">Postman</span>
+                        <span class="skill-tag">Vercel</span>
+                    </div>
+                </div>
+
+                <div class="skill-category keep">
+                    <h3>Core Concepts</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Data Structures &amp; Algorithms</span>
+                        <span class="skill-tag">DBMS</span>
+                        <span class="skill-tag">Full-Stack Development</span>
                     </div>
                 </div>
             </div>
         </section>
     </div>
+    </div>
+
+    <!-- Experience Section -->
+    <div class="frame" data-theme="experience">
+    <div class="container">
+        <section id="experience">
+            <div class="section-header">
+                <div class="section-tag">Work</div>
+                <h2 class="section-title">Experience</h2>
+                <p class="section-subtitle">Hands-on industry exposure</p>
+            </div>
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon">☕</div>
+                    <h3>Java Developer Intern</h3>
+                    <p class="tagline-sm" style="color:#fff">Nexzware · Aug 2026 – Sep 2026</p>
+                </div>
+                <div class="project-content">
+                    <ul class="info-list">
+                        <li>Developed web and mobile applications using Java, Spring Boot, REST APIs, and PostgreSQL, improving application performance and responsiveness by 30%.</li>
+                        <li>Integrated 10+ REST APIs, authentication, and database services, reducing manual processing time by 25% and delivering production-ready solutions.</li>
+                    </ul>
+                    <div class="tech-stack">
+                        <span class="tech-item">Java</span>
+                        <span class="tech-item">Spring Boot</span>
+                        <span class="tech-item">REST APIs</span>
+                        <span class="tech-item">PostgreSQL</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    </div>
 
     <!-- Projects Section -->
+    <div class="frame" data-theme="proj1">
     <div class="container">
         <section id="projects">
             <div class="section-header">
                 <div class="section-tag">Portfolio</div>
-                <h2 class="section-title">Featured Project</h2>
+                <h2 class="section-title">Featured Projects</h2>
                 <p class="section-subtitle">
                     Showcasing my work and problem-solving abilities
                 </p>
             </div>
             <div class="project-card">
                 <div class="project-header">
-                    <div class="project-icon">⛰️</div>
-                    <h3>Roam With Us Holidays </h3>
-                </div>
-                <div class="project-content">
-                    <p class="project-description">
-                        A responsive and user-friendly tourism website designed to showcase travel packages and services offered by Roam With Us Holidays. 
-                        The website provides visitors with information about destinations, tour packages, travel services, and available experiences. 
-                        Features include an attractive responsive design, package details, destination information, enquiry form, and easy navigation across different sections. 
-                        The website is optimized for mobile and desktop devices, providing a smooth browsing experience for users looking to explore and plan their trips across South India.
-                    </p>
-                    <div class="tech-stack">
-                        <span class="tech-item">HTML</span>
-                        <span class="tech-item">CSS</span>
-                        <span class="tech-item">JavaScript</span>
-                        <span class="tech-item">Vercel</span>
-                        <span class="tech-item">FormSubmit</span>
-                    </div>
-                    <a class="project-grade" href="https://roamwithusholidays.vercel.app/" >Live</a>
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="project-header">
                     <div class="project-icon">🧾</div>
-                    <h3>AI-Powered GST Extraction System</h3>
+                    <h3>AI-Powered GST Invoice Processing System</h3>
                 </div>
                 <div class="project-content">
-                    <p class="project-description">
-                        An intelligent web application designed to automate invoice processing and extract GST-related data efficiently. 
-                        The system uses AI-powered document processing to identify and extract important invoice details such as GSTIN, invoice number, date, taxable amount, tax rates, CGST, SGST, IGST, and total amount. 
-                        Features include invoice upload, automated data extraction, structured data visualization, and invoice history management. The system reduces manual data entry and improves accuracy, making it useful for businesses to simplify invoice processing, GST record management, and financial data organization.
-                    </p>
+                    <ul class="info-list">
+                        <li>Web application that automates GST invoice data extraction using OCR and Gemini AI.</li>
+                        <li>Secure user authentication, invoice upload, and invoice management features.</li>
+                        <li>Extracts key details such as GSTIN, invoice number, date, vendor information, and tax amounts.</li>
+                        <li>Stores extracted data in PostgreSQL with search, filtering, and report export.</li>
+                    </ul>
                     <div class="tech-stack">
                         <span class="tech-item">React.js</span>
                         <span class="tech-item">Node.js</span>
                         <span class="tech-item">Express.js</span>
-                        <span class="tech-item">JWT</span>
                         <span class="tech-item">PostgreSQL</span>
-                        <span class="tech-item">Gemini Ai </span>
-                        
+                        <span class="tech-item">Gemini AI</span>
                     </div>
-                    <a  class="project-grade" href="https://github.com/Nithishkumar-pxl/AI-Powered-GST-Invoice-Processing-System">Repository</a>
-                </div>
-            </div>
-             <div class="project-card">
-                <div class="project-header">
-                    <div class="project-icon">🔲</div>
-                    <h3>QR & Barcode Generator</h3>
-                </div>
-                <div class="project-content">
-                    <p class="project-description">
-                        A comprehensive web application that enables users to generate multiple QR and barcode tags 
-                        simultaneously. Features include customizable copy generation, database storage for history 
-                        tracking, and a user-friendly interface for managing generated codes. The system allows for 
-                        easy reprinting and data management, making it perfect for inventory management and product 
-                        labeling needs.
-                    </p>
-                    <div class="tech-stack">
-                        <span class="tech-item">HTML</span>
-                        <span class="tech-item">CSS</span>
-                        <span class="tech-item">JavaScript</span>
-                        <span class="tech-item">PHP</span>
-                        <span class="tech-item">MySQL</span>
-                    </div>
-                    <span class="project-grade">Grade: A</span>
+                    <a class="project-grade" href="https://github.com/Nithishkumar-pxl/AI-Powered-GST-Invoice-Processing-System" target="_blank" rel="noopener noreferrer">Repository</a>
                 </div>
             </div>
         </section>
     </div>
+    </div>
+
+    <div class="frame" data-theme="proj2">
+    <div class="container">
+        <section id="project-2">
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon">⛰️</div>
+                    <h3>Roam With Us Holidays – Tourist Package Booking Website</h3>
+                </div>
+                <div class="project-content">
+                    <ul class="info-list">
+                        <li>Responsive travel agency website showcasing tourist packages, destinations, and company services.</li>
+                        <li>Booking enquiry forms, destination galleries, customer reviews, and contact information for seamless customer interaction.</li>
+                        <li>Optimized for performance, responsiveness, and an engaging user experience across all devices.</li>
+                    </ul>
+                    <div class="tech-stack">
+                        <span class="tech-item">JavaScript</span>
+                        <span class="tech-item">HTML</span>
+                        <span class="tech-item">CSS</span>
+                        <span class="tech-item">Vercel</span>
+                        <span class="tech-item">FormSubmit</span>
+                    </div>
+                    <a class="project-grade" href="https://roamwithusholidays.vercel.app/" target="_blank" rel="noopener noreferrer">Live</a>
+                </div>
+            </div>
+        </section>
+    </div>
+    </div>
 
     <!-- Education Section -->
+    <div class="frame" data-theme="education">
     <div class="container">
         <section id="education">
             <div class="section-header">
@@ -1053,38 +1364,55 @@
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="timeline-content">
-                        <span class="timeline-year">2024 - 2026</span>
-                        <h3>Master of Computer Applications</h3>
-                        <p class="timeline-institution">RVS College Of Engineering</p>
-                        <p class="timeline-performance">75%</p>
+                        <span class="timeline-year">Aug 2021 – May 2024</span>
+                        <h3>Bachelor of Computer Applications (BCA)</h3>
+                        <p class="timeline-institution">GTN Arts College, Dindigul, Tamil Nadu</p>
+                        <p class="timeline-institution">Coursework: Data Structures and Algorithms, Database Management Systems (DBMS)</p>
+                        <p class="timeline-performance">CGPA: 7.6/10</p>
                     </div>
                     <div class="timeline-empty"></div>
                 </div>
 
                 <div class="timeline-item">
                     <div class="timeline-empty"></div>
-                    <div class="timeline-content">
-                        <span class="timeline-year">2021 - 2024</span>
-                        <h3>Bachelor of Computer Applications</h3>
-                        <p class="timeline-institution">GTN Arts College</p>
-                        <p class="timeline-performance">76%</p>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
                     <div class="timeline-content">
                         <span class="timeline-year">2021</span>
                         <h3>Higher Secondary Certificate</h3>
                         <p class="timeline-institution">Nehruji Memorial Municipal Boys. Hr. Sec. School</p>
                         <p class="timeline-performance">83.3%</p>
                     </div>
-                    <div class="timeline-empty"></div>
                 </div>
             </div>
         </section>
     </div>
+    </div>
+
+    <!-- Certifications Section -->
+    <div class="frame" data-theme="certs">
+    <div class="container">
+        <section id="certifications">
+            <div class="section-header">
+                <div class="section-tag">Credentials</div>
+                <h2 class="section-title">Certifications</h2>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Java Development</h3>
+                    <p class="cert-meta">Dec 2023</p>
+                    <a class="project-grade" href="https://drive.google.com/file/d/1-GJftjS_30ClWNUbqFsiD0_QbgyK3PIL/view" target="_blank" rel="noopener noreferrer">View Certificate</a>
+                </div>
+                <div class="skill-category">
+                    <h3>Microsoft Azure AI</h3>
+                    <p class="cert-meta">Jan 2026</p>
+                    <a class="project-grade" href="https://drive.google.com/file/d/1JQa2wmBAUjBnP3BVawBhD703u9XhoFI1/view" target="_blank" rel="noopener noreferrer">View Certificate</a>
+                </div>
+            </div>
+        </section>
+    </div>
+    </div>
 
     <!-- Contact Section -->
+    <div class="frame" data-theme="contact">
     <div class="container">
         <section id="contact">
             <div class="section-header">
@@ -1099,13 +1427,13 @@
                 <a href="mailto:nithish.rk2610@gmail.com" class="contact-card">
                     <div class="contact-icon">📧</div>
                     <h3>Email</h3>
-                    <p><span class="__cf_email__" data-cfemail="d2bcbba6babba1bafca0b9e0e4e3e292b5bfb3bbbefcb1bdbf">nithish.rk2610@gmail.com</span></p>
+                    <p>nithish.rk2610@gmail.com</p>
                 </a>
 
                 <a href="tel:+919865040694" class="contact-card">
                     <div class="contact-icon">📞</div>
                     <h3>Phone</h3>
-                    <p>+91 9865040694</p>
+                    <p>+91 98650 40694</p>
                 </a>
 
                 <a href="https://www.linkedin.com/in/nithish026" target="_blank" rel="noopener noreferrer" class="contact-card">
@@ -1122,21 +1450,32 @@
             </div>
         </section>
     </div>
+    </div>
 
     <!-- Footer -->
-    <div class="container">
+    <div class="site-footer"><div class="container">
         <footer>
             <p>© 2026 Nithish Kumar R. Built with passion and code.</p>
         </footer>
-    </div>
+    </div></div>
     <a href="#top" class="back-to-top" id="backToTop" aria-label="Back to top">↑</a>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
+                const href = this.getAttribute('href');
+                if (href === '#top' || href === '#') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    return;
+                }
+                const target = document.querySelector(href);
+                const fr = target && target.closest('.frame');
+                if (fr && window.__frameTop && window.__frameTop(fr) !== null) {
+                    window.scrollTo({ top: window.__frameTop(fr), behavior: 'smooth' });
+                    return;
+                }
                 if (target) {
                     target.scrollIntoView({
                         behavior: 'smooth',
@@ -1195,6 +1534,172 @@
                 });
             });
         }
+
+        // Mobile menu
+        (function () {
+            const btn = document.getElementById('menuToggle');
+            const links = document.getElementById('navLinks');
+            btn.addEventListener('click', () => {
+                const open = links.classList.toggle('open');
+                btn.setAttribute('aria-expanded', open);
+                btn.textContent = open ? '✕' : '☰';
+            });
+            links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+                links.classList.remove('open');
+                btn.setAttribute('aria-expanded', 'false');
+                btn.textContent = '☰';
+            }));
+        })();
+
+        // Scroll reveal + parallax (uses the CSS `translate` property so it never clashes with other animations)
+        (function () {
+            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduce) return;
+            const clamp01 = v => Math.max(0, Math.min(1, v));
+            const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+
+            // ===== full-screen frames: each slides over the previous one through shutter blinds =====
+            const frames = [...document.querySelectorAll('.frame')];
+            const items  = frames.map(f => [...f.querySelectorAll('.skill-category, .project-card, .timeline-item, .contact-card')]);
+            frames.forEach((f, i) => { f.style.zIndex = i + 1; });
+            let tops = [];
+            function layout() {                       // tall frames pin by their bottom edge so all content can be read
+                const vh = window.innerHeight; let acc = 0; tops = [];
+                frames.forEach(f => {
+                    const h = f.offsetHeight;
+                    f.style.top = (h > vh ? vh - h : 0) + 'px';
+                    tops.push(acc); acc += h;
+                });
+            }
+            window.__frameTop = (el) => { const i = frames.indexOf(el); return i < 0 ? null : tops[i]; };
+            layout();
+            document.body.classList.add('frames-on');
+            if ('ResizeObserver' in window) { const ro = new ResizeObserver(() => { layout(); update(); }); frames.forEach(f => ro.observe(f)); }
+            window.addEventListener('resize', () => { layout(); update(); });
+            window.addEventListener('load', () => { layout(); update(); });
+
+            function frameFx(y, vh) {
+                frames.forEach((f, i) => {
+                    const r = f.getBoundingClientRect();
+                    if (i > 0) {
+                        const p = clamp01(1 - r.top / (vh * 0.85));          // 0 = just entering, 1 = covering the screen
+                        items[i].forEach((el, k) => {                        // cards swing up from the floor in 3D, staggered
+                            const e = 1 - clamp01(p * 1.5 - k * 0.1);
+                            el.style.translate = `${(e * (k % 2 ? 1 : -1) * 60).toFixed(1)}px ${(e * 80).toFixed(1)}px`;
+                            el.style.rotate = `1 0 0 ${(e * 42).toFixed(1)}deg`;
+                            el.style.scale = (1 - e * 0.12).toFixed(3);
+                        });
+                        const head = f.querySelector('.section-header');
+                        if (head) head.style.rotate = `1 0 0 ${((1 - clamp01(p * 1.3)) * 50).toFixed(1)}deg`;
+                    }
+                    const next = frames[i + 1];
+                    if (next) {                                              // recede while the next frame covers this one
+                        const q = 1 - clamp01(next.getBoundingClientRect().top / vh);
+                        f.style.setProperty('--q', q.toFixed(3));
+                        f.style.scale = (1 - q * 0.08).toFixed(4);
+                    }
+                    f.style.setProperty('--gy', (r.top * 0.25).toFixed(1) + 'px');
+                });
+            }
+
+            const layers = [
+                { el: document.querySelector('.bg-pattern'), speed: -0.06 },
+                { el: document.querySelector('.orb-1'),      speed: -0.18 },
+                { el: document.querySelector('.orb-2'),      speed: -0.30 },
+                { el: document.querySelector('.orb-3'),      speed: -0.10 },
+            ];
+            const heroText  = document.querySelector('.hero-content');
+            const heroVisual = document.querySelector('.hero-visual');
+            const headers = [...document.querySelectorAll('.section-header')]
+                .map(el => ({ el, section: el.closest('section') }));
+
+            let ticking = false;
+            function update() {
+                ticking = false;
+                const y = window.scrollY, vh = window.innerHeight;
+                frameFx(y, vh);
+                layers.forEach(l => { if (l.el) l.el.style.translate = `0 ${(y * l.speed).toFixed(1)}px`; });
+
+                if (y < vh * 1.3) {                      // hero drifts at different speeds
+                    heroText.style.translate   = `0 ${(y * 0.14).toFixed(1)}px`;
+                    heroVisual.style.translate = `0 ${(y * 0.30).toFixed(1)}px`;
+                }
+                headers.forEach(({ el, section }) => {   // headings float against their section
+                    const r = section.getBoundingClientRect();
+                    if (r.bottom < -100 || r.top > vh + 100) return;
+                    const off = (r.top + r.height / 2) - vh / 2;
+                    const d = Math.max(-45, Math.min(45, off * 0.08));
+                    el.style.translate = `0 ${d.toFixed(1)}px`;
+                });
+            }
+            window.addEventListener('scroll', () => {
+                if (!ticking) { ticking = true; requestAnimationFrame(update); }
+            }, { passive: true });
+            window.addEventListener('resize', update);
+            update();
+        })();
+
+        // 3D tilt + glare on glass cards (mouse only)
+        if (window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
+            !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.querySelectorAll('.skill-category, .project-card, .timeline-content, .contact-card').forEach(el => {
+                el.classList.add('tilt');
+                const k = el.classList.contains('project-card') ? 0.5 : 1;
+                el.addEventListener('pointermove', e => {
+                    const r = el.getBoundingClientRect();
+                    const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+                    el.style.setProperty('--ry', ((x - .5) * 16 * k).toFixed(2) + 'deg');
+                    el.style.setProperty('--rx', ((.5 - y) * 12 * k).toFixed(2) + 'deg');
+                    el.style.setProperty('--mx', (x * 100).toFixed(1) + '%');
+                    el.style.setProperty('--my', (y * 100).toFixed(1) + '%');
+                });
+                el.addEventListener('pointerleave', () => { el.style.setProperty('--rx', '0deg'); el.style.setProperty('--ry', '0deg'); });
+            });
+        }
+
+        // Splash screen: the name cycles through fonts, letters settle left → right as loading completes
+        (function () {
+            const splash = document.getElementById('splash');
+            const nameEl = document.getElementById('splashName');
+            const bar = document.getElementById('splashBar'), pct = document.getElementById('splashPct');
+            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const FINAL = "'Syne', sans-serif";
+            const FONTS = ["'Playfair Display', serif", "'Bebas Neue', sans-serif", "'Pacifico', cursive", "'Orbitron', sans-serif",
+                           "'Righteous', sans-serif", "'Space Grotesk', sans-serif", "'Lobster', cursive", "'JetBrains Mono', monospace", "'Syne', sans-serif"];
+            const text = nameEl.textContent.trim();
+            nameEl.textContent = '';
+            const letters = [...text].map((ch, i) => {
+                const sp = document.createElement('span');
+                sp.style.setProperty('--i', i);
+                sp.textContent = ch === ' ' ? '\u00A0' : ch;
+                nameEl.appendChild(sp);
+                return ch === ' ' ? null : sp;
+            }).filter(Boolean);
+            const MIN = reduce ? 700 : 3000;
+            const t0 = performance.now();
+            let loaded = document.readyState === 'complete', done = false;
+            if (!loaded) window.addEventListener('load', () => { loaded = true; });
+            function finish() {
+                if (done) return; done = true;
+                splash.classList.add('hide');
+                document.body.classList.remove('loading');
+                window.scrollTo(0, 0);
+                setTimeout(() => splash.remove(), 1300);
+            }
+            const timer = setInterval(() => {
+                const el = performance.now() - t0;
+                let prog = Math.min(el / MIN, 1) * 100;
+                if (!loaded) prog = Math.min(prog, 92);
+                const lock = Math.floor(prog / 100 * letters.length);
+                letters.forEach((sp, i) => {
+                    sp.style.fontFamily = (reduce || i < lock) ? FINAL : FONTS[Math.floor(Math.random() * FONTS.length)];
+                    sp.style.fontWeight = i < lock ? 800 : 700;
+                });
+                bar.style.width = prog.toFixed(0) + '%';
+                pct.textContent = prog.toFixed(0) + '%';
+                if (prog >= 100) { clearInterval(timer); setTimeout(finish, 550); }
+            }, 95);
+        })();
 
         // Back to top button
         const backToTop = document.getElementById('backToTop');
@@ -1314,7 +1819,455 @@
             requestAnimationFrame(frame);
         })();
     </script>
+    <script>
+    /* ===== 3D Tech Stack Keyboard (Three.js, loaded lazily) ===== */
+    (function () {
+        'use strict';
+        const root = document.getElementById('techKeyboard');
+        if (!root) return;
+        const stage = document.getElementById('kbStage');
+        const host = stage.querySelector('.kb-canvas-host');
+        const panel = document.getElementById('kbPanel');
+        const chipsEl = document.getElementById('kbChips');
+        const sectionEl = document.getElementById('skills');
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        /* ---------- Editable data: add / remove / reorder technologies here ---------- */
+        // slugs = Simple Icons names (https://simpleicons.org); glyph = text shown when there is no logo.
+        // layout: each row lists tech ids (or {decor, w} for non-interactive filler keys).
+        const TECH = [
+            { id: 'html5',      name: 'HTML5',       category: 'Web Technologies',       slugs: ['html5'],       color: '#E34F26', ink: '#ffffff', description: 'Semantic, accessible markup that gives every page a solid structure.' },
+            { id: 'css3',       name: 'CSS3',        category: 'Web Technologies',       slugs: ['css3'],        color: '#2965F1', ink: '#ffffff', description: 'Responsive layouts, animations and polished styling with Flexbox and Grid.' },
+            { id: 'javascript', name: 'JavaScript',  category: 'Languages',              slugs: ['javascript'],  color: '#F7DF1E', ink: '#1a1a1a', description: 'Interactive front-end behaviour and server-side logic across the full stack.' },
+            { id: 'python',     name: 'Python',      category: 'Languages',              slugs: ['python'],      color: '#3776AB', ink: '#ffffff', description: 'Scripting, problem solving and quick prototypes.' },
+            { id: 'java',       name: 'Java',        category: 'Languages',              slugs: ['java', 'openjdk'], color: '#E76F00', ink: '#ffffff', description: 'Object-oriented programming, data structures and backend services.' },
+            { id: 'rest',       name: 'REST API',    category: 'Web Technologies',       slugs: [], glyph: 'API', color: '#10B981', ink: '#ffffff', description: 'Designing and consuming clean HTTP APIs that connect front ends to back ends.' },
+            { id: 'react',      name: 'React.js',    category: 'Frameworks & Libraries', slugs: ['react'],       color: '#149ECA', ink: '#ffffff', description: 'Component-based, responsive interfaces using hooks and reusable UI pieces.' },
+            { id: 'node',       name: 'Node.js',     category: 'Frameworks & Libraries', slugs: ['nodedotjs'],   color: '#3C873A', ink: '#ffffff', description: 'JavaScript on the server for APIs and tooling.' },
+            { id: 'express',    name: 'Express.js',  category: 'Frameworks & Libraries', slugs: ['express'],     color: '#6B7280', ink: '#ffffff', description: 'Lightweight routing and middleware for building REST backends.' },
+            { id: 'spring',     name: 'Spring Boot', category: 'Frameworks & Libraries', slugs: ['springboot'],  color: '#6DB33F', ink: '#ffffff', description: 'Production-style Java backends with REST controllers and database integration.' },
+            { id: 'flutter',    name: 'Flutter',     category: 'Frameworks & Libraries', slugs: ['flutter'],     color: '#0B5FB0', ink: '#ffffff', description: 'Cross-platform mobile apps from a single codebase.' },
+            { id: 'mysql',      name: 'MySQL',       category: 'Databases',              slugs: ['mysql'],       color: '#00758F', ink: '#ffffff', description: 'Relational schema design, joins and queries.' },
+            { id: 'postgres',   name: 'PostgreSQL',  category: 'Databases',              slugs: ['postgresql'],  color: '#336791', ink: '#ffffff', description: 'Reliable relational storage with powerful SQL features.' },
+            { id: 'mongodb',    name: 'MongoDB',     category: 'Databases',              slugs: ['mongodb'],     color: '#2E9E4F', ink: '#ffffff', description: 'Flexible document storage for JSON-style data.' },
+            { id: 'git',        name: 'Git',         category: 'Tools & Platforms',      slugs: ['git'],         color: '#F05032', ink: '#ffffff', description: 'Version control, branching and clean commit history.' },
+            { id: 'github',     name: 'GitHub',      category: 'Tools & Platforms',      slugs: ['github'],      color: '#6E40C9', ink: '#ffffff', description: 'Hosting code, pull requests and collaborating on projects.' },
+            { id: 'postman',    name: 'Postman',     category: 'Tools & Platforms',      slugs: ['postman'],     color: '#FF6C37', ink: '#ffffff', description: 'Testing and debugging APIs during development.' },
+            { id: 'vercel',     name: 'Vercel',      category: 'Tools & Platforms',      slugs: ['vercel'],      color: '#2B2B33', ink: '#ffffff', description: 'Fast deployments and previews for front-end projects.' }
+        ];
+        const LAYOUT = [
+            { off: 0,    keys: ['html5', 'css3', 'javascript', 'python', 'java', 'rest', { decor: 'ESC', w: 1 }] },
+            { off: 0.3,  keys: ['react', 'node', 'express', 'spring', 'flutter', { decor: '\u232B', w: 1.8 }] },
+            { off: 0.55, keys: ['mysql', 'postgres', 'mongodb', 'git', 'github', 'postman'] },
+            { off: 0.95, keys: ['vercel', { decor: 'FULL STACK', w: 4 }, { decor: '</>', w: 1 }] }
+        ];
+        const ICON_CDN = 'https://cdn.jsdelivr.net/npm/simple-icons@9.21.0/icons/';
+        const THREE_URL = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+
+        /* ---------- Panel + chips (plain DOM, no per-frame work) ---------- */
+        const byId = {};
+        TECH.forEach(t => { byId[t.id] = t; });
+        let hoverId = null, focusId = null, pinId = null, shownId = null;
+        let wake = () => {};
+        const chipBtns = {};
+        TECH.forEach(t => {
+            const b = document.createElement('button');
+            b.type = 'button'; b.style.setProperty('--c', t.color); b.setAttribute('aria-pressed', 'false');
+            b.innerHTML = '<i></i>' + t.name.replace(/&/g, '&amp;');
+            b.addEventListener('mouseenter', () => { focusId = t.id; sync(); });
+            b.addEventListener('mouseleave', () => { focusId = null; sync(); });
+            b.addEventListener('focus', () => { focusId = t.id; sync(); });
+            b.addEventListener('blur', () => { focusId = null; sync(); });
+            b.addEventListener('click', () => { pinId = pinId === t.id ? null : t.id; sync(); });
+            chipsEl.appendChild(b); chipBtns[t.id] = b;
+        });
+        function activeId() { return hoverId || focusId || pinId; }
+        function sync() {
+            const a = activeId();
+            if (a && a !== shownId) {
+                const t = byId[a]; shownId = a;
+                panel.style.setProperty('--kc', t.color);
+                panel.querySelector('.kb-cat').textContent = t.category;
+                panel.querySelector('h3').textContent = t.name;
+                panel.querySelector('p').textContent = t.description;
+                panel.classList.remove('swap'); void panel.offsetWidth; panel.classList.add('swap');
+            }
+            panel.querySelector('.kb-pin').textContent = (pinId && pinId === shownId) ? '\u25CF Pinned \u2014 tap again to unpin' : '';
+            TECH.forEach(t => {
+                chipBtns[t.id].classList.toggle('active', t.id === a);
+                chipBtns[t.id].setAttribute('aria-pressed', String(t.id === pinId));
+            });
+            stage.classList.toggle('over-key', !!hoverId);
+            wake();
+        }
+
+        /* ---------- Lazy boot ---------- */
+        let booted = false;
+        function boot() {
+            if (booted) return; booted = true;
+            if (window.THREE) return start();
+            const s = document.createElement('script');
+            s.src = THREE_URL; s.async = true;
+            s.onload = () => { try { start(); } catch (e) { console.warn(e); fail(); } };
+            s.onerror = fail;
+            document.head.appendChild(s);
+        }
+        function fail() { stage.classList.add('no-webgl'); sectionEl.classList.remove('kb-ready'); }
+        if ('IntersectionObserver' in window) {
+            const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { io.disconnect(); boot(); } }, { rootMargin: '400px' });
+            io.observe(stage);
+        } else boot();
+
+        function start() {
+            const T = window.THREE;
+            let renderer;
+            try {
+                renderer = new T.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+            } catch (e) { return fail(); }
+            if (!renderer.getContext()) return fail();
+            sectionEl.classList.add('kb-ready');
+            const small = window.innerWidth < 700;
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, small ? 1.5 : 2));
+            renderer.outputEncoding = T.sRGBEncoding;
+            renderer.toneMapping = T.ACESFilmicToneMapping;
+            renderer.toneMappingExposure = 1.05;
+            const canvas = renderer.domElement;
+            canvas.setAttribute('role', 'img');
+            canvas.setAttribute('aria-label', 'Interactive 3D keyboard. Each key is a technology I use. A full list is available below.');
+            host.appendChild(canvas);
+
+            const scene = new T.Scene();
+            const camera = new T.PerspectiveCamera(32, 1, 0.1, 200);
+            const maxAniso = renderer.capabilities.getMaxAnisotropy();
+
+            /* environment for reflections (cheap, generated once) */
+            {
+                const env = new T.Scene();
+                env.add(new T.Mesh(new T.BoxGeometry(40, 40, 40), new T.MeshBasicMaterial({ color: 0x0a1226, side: T.BackSide })));
+                const panelMat = (c, k) => new T.MeshBasicMaterial({ color: new T.Color(c).multiplyScalar(k), side: T.DoubleSide });
+                const p1 = new T.Mesh(new T.PlaneGeometry(16, 6), panelMat(0xcfe8ff, 5)); p1.position.set(0, 14, 4); p1.rotation.x = Math.PI / 2; env.add(p1);
+                const p2 = new T.Mesh(new T.PlaneGeometry(6, 12), panelMat(0x4cc9f0, 3)); p2.position.set(-14, 4, 0); p2.rotation.y = Math.PI / 2; env.add(p2);
+                const p3 = new T.Mesh(new T.PlaneGeometry(6, 12), panelMat(0xff6f61, 2.5)); p3.position.set(14, 3, -3); p3.rotation.y = -Math.PI / 2; env.add(p3);
+                const pm = new T.PMREMGenerator(renderer);
+                scene.environment = pm.fromScene(env, 0.04).texture;
+                pm.dispose();
+                env.traverse(o => { if (o.geometry) o.geometry.dispose(); if (o.material) o.material.dispose(); });
+            }
+
+            /* lights */
+            scene.add(new T.HemisphereLight(0x9bbcff, 0x0a0f1e, 0.55));
+            const key = new T.DirectionalLight(0xffffff, 1.1); key.position.set(-4, 9, 6); scene.add(key);
+            const rim = new T.PointLight(0x4cc9f0, 1.2, 30); rim.position.set(7, 3, -6); scene.add(rim);
+            const warm = new T.PointLight(0xff6f61, 0.8, 30); warm.position.set(-8, 2, 3); scene.add(warm);
+            const cursorLight = new T.PointLight(0xffffff, 0.55, 14); cursorLight.position.set(0, 3, 3); scene.add(cursorLight);
+            const keyLight = new T.PointLight(0xffffff, 0, 6, 2); scene.add(keyLight);
+
+            /* helpers */
+            function roundRect(w, d, r) {
+                const s = new T.Shape(), x = -w / 2, y = -d / 2;
+                s.moveTo(x + r, y); s.lineTo(x + w - r, y); s.quadraticCurveTo(x + w, y, x + w, y + r);
+                s.lineTo(x + w, y + d - r); s.quadraticCurveTo(x + w, y + d, x + w - r, y + d);
+                s.lineTo(x + r, y + d); s.quadraticCurveTo(x, y + d, x, y + d - r);
+                s.lineTo(x, y + r); s.quadraticCurveTo(x, y, x + r, y); return s;
+            }
+            function extrudeUp(shape, depth, bevel) {
+                const g = new T.ExtrudeGeometry(shape, { depth, bevelEnabled: true, bevelThickness: bevel, bevelSize: bevel, bevelSegments: 3, curveSegments: 8 });
+                g.rotateX(-Math.PI / 2); g.translate(0, bevel, 0); return g;   // bottom at y=0
+            }
+            function radial(stops, size) {
+                const c = document.createElement('canvas'); c.width = c.height = size || 128;
+                const x = c.getContext('2d'), g = x.createRadialGradient(c.width / 2, c.width / 2, 0, c.width / 2, c.width / 2, c.width / 2);
+                stops.forEach(s => g.addColorStop(s[0], s[1]));
+                x.fillStyle = g; x.fillRect(0, 0, c.width, c.width);
+                const t = new T.CanvasTexture(c); t.encoding = T.sRGBEncoding; return t;
+            }
+            const srgb = hex => new T.Color(hex).convertSRGBToLinear();
+
+            /* ---------- keyboard ---------- */
+            const pitchG = new T.Group(), yawG = new T.Group(), kb = new T.Group();
+            pitchG.add(yawG); yawG.add(kb); scene.add(pitchG);
+            kb.rotation.x = 0.05;
+
+            const GAP = 0.1, ROW = 1.1, KH = 0.36, BEV = 0.06, TOP = KH + BEV * 2, BASE_TOP = 0.62;
+            const capGeos = {};
+            function capGeo(w) {
+                const k = w.toFixed(2);
+                if (!capGeos[k]) capGeos[k] = extrudeUp(roundRect(w - BEV * 2, 1 - BEV * 2, 0.12), KH, BEV);
+                return capGeos[k];
+            }
+            const keys = [], pickMeshes = [];
+            const layout = [];
+            let minX = 1e9, maxX = -1e9;
+            LAYOUT.forEach((row, ri) => {
+                let x = row.off;
+                row.keys.forEach(k => {
+                    const w = typeof k === 'string' ? 1 : k.w;
+                    layout.push({ k, x: x + w / 2, ri, w });
+                    minX = Math.min(minX, x); maxX = Math.max(maxX, x + w);
+                    x += w + GAP;
+                });
+            });
+            const cx = (minX + maxX) / 2, rows = LAYOUT.length;
+            const W = maxX - minX + 1.0, D = rows * ROW + 0.9;
+
+            function paintKey(tex, spec, img) {
+                const c = tex.image, x = c.getContext('2d'), w = c.width, h = c.height;
+                x.clearRect(0, 0, w, h);
+                x.fillStyle = spec.ink; x.textAlign = 'center'; x.textBaseline = 'middle';
+                const fit = (txt, size, weight, maxW, y) => {
+                    let s = size; x.font = weight + ' ' + s + "px 'JetBrains Mono', monospace";
+                    while (x.measureText(txt).width > maxW && s > 12) { s -= 2; x.font = weight + ' ' + s + "px 'JetBrains Mono', monospace"; }
+                    x.fillText(txt, w / 2, y);
+                };
+                if (spec.decorText) { x.globalAlpha = 0.55; fit(spec.decorText, spec.decorText.length > 4 ? 64 : 80, 700, w - 60, h / 2); x.globalAlpha = 1; }
+                else if (img) {
+                    const s = 138; x.drawImage(img, (w - s) / 2, 30, s, s);
+                    x.globalAlpha = 0.95; fit(spec.name, 32, 700, w - 28, 214); x.globalAlpha = 1;
+                } else if (spec.glyph) {
+                    fit(spec.glyph, 104, 800, w - 50, 104); fit(spec.name, 32, 700, w - 28, 214);
+                } else fit(spec.name, 54, 800, w - 30, h / 2);
+                tex.needsUpdate = true;
+            }
+            function makeTex(w) {
+                const c = document.createElement('canvas'); c.width = Math.round(256 * Math.min(w, 4)); c.height = 256;
+                const t = new T.CanvasTexture(c); t.encoding = T.sRGBEncoding; t.anisotropy = Math.min(8, maxAniso); return t;
+            }
+
+            layout.forEach((it, i) => {
+                const spec = typeof it.k === 'string' ? byId[it.k] : { id: 'decor' + i, name: '', color: '#222733', ink: '#9fb3c8', decorText: it.k.decor };
+                const interactive = typeof it.k === 'string';
+                const g = new T.Group();
+                g.position.set(it.x - cx, BASE_TOP, (it.ri - (rows - 1) / 2) * ROW);
+                const mat = new T.MeshStandardMaterial({ color: srgb(spec.color), roughness: 0.38, metalness: 0.08, emissive: srgb(spec.color), emissiveIntensity: 0, envMapIntensity: 0.9 });
+                const body = new T.Mesh(capGeo(it.w), mat);
+                g.add(body);
+                const tex = makeTex(it.w);
+                const logo = new T.Mesh(new T.PlaneGeometry(it.w - 0.2, 0.8), new T.MeshBasicMaterial({ map: tex, transparent: true, toneMapped: false, depthWrite: false }));
+                logo.rotation.x = -Math.PI / 2; logo.position.y = TOP + 0.004;
+                g.add(logo);
+                kb.add(g);
+                const rec = { spec, g, mat, logo, h: 0, tex, interactive };
+                keys.push(rec);
+                if (interactive) { body.userData.tech = spec.id; pickMeshes.push(body); }
+                paintKey(tex, spec, null);
+            });
+
+            /* logos: fetch real SVGs, tint to the key's ink colour, paint onto the key textures */
+            function loadLogo(rec, slugs) {
+                if (!slugs.length) return;
+                const slug = slugs[0];
+                fetch(ICON_CDN + slug + '.svg').then(r => { if (!r.ok) throw 0; return r.text(); }).then(svg => {
+                    svg = svg.replace('<svg', '<svg width="256" height="256" fill="' + rec.spec.ink + '"');
+                    const img = new Image();
+                    img.onload = () => { rec.img = img; paintKey(rec.tex, rec.spec, img); wake(); };
+                    img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+                }).catch(() => loadLogo(rec, slugs.slice(1)));
+            }
+            keys.forEach(r => { if (r.interactive) loadLogo(r, r.spec.slugs || []); });
+            if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { keys.forEach(r => paintKey(r.tex, r.spec, r.img || null)); wake(); });
+
+            /* base, plate, light bar, underglow, soft shadow */
+            const baseMat = new T.MeshStandardMaterial({ color: 0x1b1e27, roughness: 0.32, metalness: 0.75, envMapIntensity: 1 });
+            const base = new T.Mesh(extrudeUp(roundRect(W - 0.32, D - 0.32, 0.4), 0.42, 0.08), baseMat);
+            base.scale.set(1, 1, 1); kb.add(base);
+            const plate = new T.Mesh(extrudeUp(roundRect(W - 0.5, D - 0.5, 0.3), 0.03, 0.02), new T.MeshStandardMaterial({ color: 0x0d0f15, roughness: 0.7, metalness: 0.3 }));
+            plate.position.y = BASE_TOP - 0.06; kb.add(plate);
+            const bar = new T.Mesh(new T.BoxGeometry(W * 0.6, 0.05, 0.04), new T.MeshBasicMaterial({ color: 0x4cc9f0, toneMapped: false }));
+            bar.position.set(0, 0.28, D / 2 - 0.1); kb.add(bar);
+            const glow = new T.Mesh(new T.PlaneGeometry(W + 4, D + 4), new T.MeshBasicMaterial({ map: radial([[0, 'rgba(76,201,240,.55)'], [0.5, 'rgba(76,201,240,.16)'], [1, 'rgba(76,201,240,0)']], 256), transparent: true, blending: T.AdditiveBlending, depthWrite: false, toneMapped: false }));
+            glow.rotation.x = -Math.PI / 2; glow.position.y = -0.12; kb.add(glow);
+            const shadow = new T.Mesh(new T.PlaneGeometry(W + 3, D + 3), new T.MeshBasicMaterial({ map: radial([[0, 'rgba(0,0,0,.75)'], [0.6, 'rgba(0,0,0,.3)'], [1, 'rgba(0,0,0,0)']], 256), transparent: true, depthWrite: false }));
+            shadow.rotation.x = -Math.PI / 2; shadow.position.y = -0.16; kb.add(shadow);
+
+            /* stars + floating particles (one Points each, no per-frame allocations) */
+            const starTex = radial([[0, 'rgba(255,255,255,1)'], [0.4, 'rgba(255,255,255,.5)'], [1, 'rgba(255,255,255,0)']], 64);
+            const NS = small ? 350 : 800, sp = new Float32Array(NS * 3), sc = new Float32Array(NS * 3);
+            for (let i = 0; i < NS; i++) {
+                sp[i * 3] = (Math.random() - 0.5) * 90; sp[i * 3 + 1] = (Math.random() - 0.5) * 50; sp[i * 3 + 2] = -50 + Math.random() * 40;
+                const c = new T.Color().setHSL(0.55 + Math.random() * 0.15, 0.6, 0.7 + Math.random() * 0.3); sc[i * 3] = c.r; sc[i * 3 + 1] = c.g; sc[i * 3 + 2] = c.b;
+            }
+            const sg = new T.BufferGeometry(); sg.setAttribute('position', new T.BufferAttribute(sp, 3)); sg.setAttribute('color', new T.BufferAttribute(sc, 3));
+            const stars = new T.Points(sg, new T.PointsMaterial({ size: 0.55, map: starTex, vertexColors: true, transparent: true, depthWrite: false, blending: T.AdditiveBlending, sizeAttenuation: true }));
+            scene.add(stars);
+            const NP = small ? 24 : 55, pp = new Float32Array(NP * 3), pSeed = new Float32Array(NP * 3);
+            for (let i = 0; i < NP; i++) { pSeed[i * 3] = Math.random() * 6.28; pSeed[i * 3 + 1] = 0.2 + Math.random() * 0.5; pSeed[i * 3 + 2] = 5 + Math.random() * 7; }
+            const pg = new T.BufferGeometry(); pg.setAttribute('position', new T.BufferAttribute(pp, 3));
+            const parts = new T.Points(pg, new T.PointsMaterial({ size: 0.28, map: starTex, color: 0xffc857, transparent: true, opacity: 0.8, depthWrite: false, blending: T.AdditiveBlending }));
+            parts.frustumCulled = false; scene.add(parts);
+
+            /* ---------- camera fit ---------- */
+            function resize() {
+                const w = Math.max(1, host.clientWidth), h = Math.max(1, host.clientHeight);
+                renderer.setSize(w, h, false);
+                camera.aspect = w / h;
+                const vf = T.MathUtils.degToRad(camera.fov), hf = 2 * Math.atan(Math.tan(vf / 2) * camera.aspect);
+                const R = W / 2 + 0.7, H = 3.4;
+                const dist = Math.max(R / Math.tan(hf / 2), H / Math.tan(vf / 2));
+                camera.position.set(0, 0.3, dist); camera.lookAt(0, 0, 0); camera.updateProjectionMatrix();
+                needsRender = true;
+            }
+            let needsRender = true;
+            const ro = new ResizeObserver(resize); ro.observe(host);
+
+            /* ---------- interaction state ---------- */
+            const DEF_YAW = -0.5, DEF_PITCH = 0.62, TAU = Math.PI * 2, AUTO = 0.14;
+            let yaw = DEF_YAW, yawT = DEF_YAW, yawV = 0, pitch = DEF_PITCH, pitchT = DEF_PITCH;
+            let px = 0, py = 0, pxS = 0, pyS = 0, inside = false, dragging = false, down = null;
+            let autoOn = !reduce, lastInteract = -9999, lastX = 0, lastY = 0, lastMoveT = 0, mouse = true;
+            const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+            const ray = new T.Raycaster(), ndc = new T.Vector2(), tmp = new T.Vector3();
+
+            function pick(cx_, cy_) {
+                const r = canvas.getBoundingClientRect();
+                ndc.set(((cx_ - r.left) / r.width) * 2 - 1, -((cy_ - r.top) / r.height) * 2 + 1);
+                ray.setFromCamera(ndc, camera);
+                const hit = ray.intersectObjects(pickMeshes, false)[0];
+                return hit ? hit.object.userData.tech : null;
+            }
+            function setHover(id) { if (id !== hoverId) { hoverId = id; sync(); } }
+            function pointer(e) {
+                const r = stage.getBoundingClientRect();
+                px = clamp(((e.clientX - r.left) / r.width) * 2 - 1, -1, 1);
+                py = clamp(-(((e.clientY - r.top) / r.height) * 2 - 1), -1, 1);
+                lastX = e.clientX; lastY = e.clientY;
+            }
+            const touch = () => stage.classList.add('touched');
+
+            function onDown(e) {
+                kick();
+                if (e.target.closest('.kb-ui')) return;
+                if (e.pointerType === 'mouse' && e.button !== 0) return;
+                mouse = e.pointerType === 'mouse'; pointer(e);
+                dragging = true; yawV = 0; lastInteract = performance.now();
+                down = { x: e.clientX, y: e.clientY, t: performance.now(), moved: 0 };
+                lastMoveT = e.timeStamp; stage.classList.add('dragging'); touch();
+                try { stage.setPointerCapture(e.pointerId); } catch (_) {}
+                needsRender = true;
+            }
+            function onMove(e) {
+                kick();
+                mouse = e.pointerType === 'mouse'; pointer(e); inside = true; lastInteract = performance.now();
+                if (dragging && down) {
+                    const dx = e.clientX - down.x, dy = e.clientY - down.y;
+                    down.x = e.clientX; down.y = e.clientY; down.moved += Math.abs(dx) + Math.abs(dy);
+                    const dt = Math.max(0.008, (e.timeStamp - lastMoveT) / 1000); lastMoveT = e.timeStamp;
+                    const dyaw = dx * 0.009; yawT += dyaw;
+                    pitchT = clamp(pitchT + dy * 0.005, 0.08, 1.25);
+                    yawV += (clamp(dyaw / dt, -7, 7) - yawV) * 0.4;
+                    if (hoverId) setHover(null);
+                } else if (mouse) setHover(pick(e.clientX, e.clientY));
+                needsRender = true;
+            }
+            function endDrag(e, cancelled) {
+                if (!dragging) return;
+                dragging = false; stage.classList.remove('dragging');
+                try { stage.releasePointerCapture(e.pointerId); } catch (_) {}
+                if (e.timeStamp - lastMoveT > 90) yawV = 0;
+                if (!cancelled && down && down.moved < 8 && performance.now() - down.t < 450) {   // tap / click selects + pins
+                    yawV = 0;
+                    const id = pick(e.clientX, e.clientY);
+                    if (id) pinId = pinId === id ? null : id; else if (!mouse) pinId = null;
+                    sync();
+                }
+                down = null; lastInteract = performance.now(); needsRender = true;
+            }
+            function onLeave(e) {
+                if (e.pointerType && e.pointerType !== 'mouse') return;
+                inside = false; px = 0; py = 0; if (!dragging) setHover(null);
+            }
+            stage.addEventListener('pointerdown', onDown);
+            stage.addEventListener('pointermove', onMove);
+            stage.addEventListener('pointerup', e => endDrag(e, false));
+            stage.addEventListener('pointercancel', e => endDrag(e, true));
+            stage.addEventListener('pointerleave', onLeave);
+
+            const nearest = target => target + TAU * Math.round((yaw - target) / TAU);
+            stage.querySelector('.kb-ui').addEventListener('click', e => {
+                const b = e.target.closest('button'); if (!b) return;
+                kick(); const a = b.dataset.act; lastInteract = performance.now(); yawV = 0; touch();
+                if (a === 'left') yawT += Math.PI / 2;
+                else if (a === 'right') yawT -= Math.PI / 2;
+                else if (a === 'spin') yawT += TAU;
+                else if (a === 'auto') { autoOn = !autoOn; b.setAttribute('aria-pressed', String(autoOn)); }
+                else if (a === 'reset') { yawT = nearest(DEF_YAW); pitchT = DEF_PITCH; }
+                needsRender = true;
+            });
+            if (reduce) stage.querySelector('[data-act="auto"]').setAttribute('aria-pressed', 'false');
+
+            /* ---------- render loop ---------- */
+            let visible = true, raf = 0, last = performance.now(), frame = 0;
+            const vio = new IntersectionObserver(es => { visible = es[0].isIntersecting; kick(); }, { rootMargin: '100px' });
+            vio.observe(stage);
+            document.addEventListener('visibilitychange', kick);
+            function kick() { if (!raf && visible && !document.hidden) { last = performance.now(); raf = requestAnimationFrame(tick); } }
+
+            function tick(now) {
+                raf = 0;
+                if (!visible || document.hidden) return;
+                const dt = Math.min(0.05, (now - last) / 1000); last = now; frame++;
+                const t = now / 1000;
+                let busy = dragging || Math.abs(yawV) > 0.001;
+
+                if (!dragging && yawV) { yawT += yawV * dt; yawV *= Math.exp(-3.2 * dt); if (Math.abs(yawV) < 0.001) yawV = 0; }
+                if (autoOn && !reduce && !dragging && !hoverId && !focusId && now - lastInteract > 1200) { yawT += AUTO * dt; busy = true; }
+
+                const k = 1 - Math.exp(-(dragging ? 22 : 8) * dt);
+                yaw += (yawT - yaw) * k; pitch += (pitchT - pitch) * k;
+                const kp = 1 - Math.exp(-5 * dt);
+                pxS += (px - pxS) * kp; pyS += (py - pyS) * kp;
+                if (Math.abs(yawT - yaw) > 0.0005 || Math.abs(pitchT - pitch) > 0.0005 || Math.abs(px - pxS) > 0.001 || Math.abs(py - pyS) > 0.001) busy = true;
+
+                yawG.rotation.y = yaw + pxS * 0.3;
+                pitchG.rotation.x = pitch - pyS * 0.14;
+                const fl = reduce ? 0 : Math.sin(t * 0.8) * 0.09;
+                pitchG.position.set(pxS * 0.4, pyS * 0.2 + fl, pxS * pxS * -0.2 + pyS * 0.3);
+                if (!reduce) { kb.rotation.z = Math.sin(t * 0.6) * 0.012; busy = true; }
+                cursorLight.position.set(pxS * 6, 3.2, 3.5 - pyS * 3);
+                cursorLight.intensity = inside ? 0.7 : 0.35;
+
+                if (inside && mouse && !dragging && frame % 4 === 0) setHover(pick(lastX, lastY));   // keeps hover correct while the board rotates
+
+                const act = activeId();
+                let anyActive = false;
+                for (let i = 0; i < keys.length; i++) {
+                    const r = keys[i]; if (!r.interactive) continue;
+                    const target = r.spec.id === act ? 1 : 0;
+                    if (Math.abs(target - r.h) > 0.002) { r.h += (target - r.h) * (1 - Math.exp(-14 * dt)); busy = true; } else r.h = target;
+                    r.g.position.y = BASE_TOP + r.h * 0.2;
+                    const s = 1 + r.h * 0.05; r.g.scale.set(s, 1, s);
+                    r.mat.emissiveIntensity = r.h * 0.5;
+                    r.logo.material.color.setScalar(1 + r.h * 0.25);
+                    if (r.spec.id === act) { anyActive = true; keyLight.color.copy(r.mat.color); r.g.getWorldPosition(tmp); tmp.y += 0.9; keyLight.position.copy(tmp); }
+                }
+                keyLight.intensity += ((anyActive ? 2.2 : 0) - keyLight.intensity) * (1 - Math.exp(-10 * dt));
+                if (Math.abs(keyLight.intensity) > 0.01) busy = true;
+                bar.material.color.setHSL(0.52 + Math.sin(t * 0.3) * 0.08, 0.9, 0.6);
+
+                if (!reduce) {
+                    stars.rotation.y = Math.sin(t * 0.03) * 0.08; stars.position.x = -pxS * 1.2; stars.position.y = -pyS * 0.6;
+                    for (let i = 0; i < NP; i++) {
+                        const a = pSeed[i * 3] + t * pSeed[i * 3 + 1] * 0.25, r = pSeed[i * 3 + 2];
+                        pp[i * 3] = Math.cos(a) * r; pp[i * 3 + 1] = Math.sin(a * 1.7 + i) * 2.4 + 1.2; pp[i * 3 + 2] = Math.sin(a) * r * 0.6 - 1;
+                    }
+                    pg.attributes.position.needsUpdate = true;
+                }
+                renderer.render(scene, camera); needsRender = false;
+                if (busy || needsRender || inside || !reduce) raf = requestAnimationFrame(tick);
+            }
+            wake = () => { needsRender = true; kick(); };
+            resize(); kick();
+            canvas.addEventListener('webglcontextlost', e => { e.preventDefault(); fail(); });
+
+            window.addEventListener('pagehide', () => {
+                cancelAnimationFrame(raf); ro.disconnect(); vio.disconnect();
+                renderer.dispose(); scene.traverse(o => { if (o.geometry) o.geometry.dispose(); if (o.material) { if (o.material.map) o.material.map.dispose(); o.material.dispose(); } });
+            });
+        }
+    })();
+    </script>
 </body>
 </html>
                 
+
+ 
 
